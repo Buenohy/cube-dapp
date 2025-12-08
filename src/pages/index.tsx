@@ -1,12 +1,6 @@
-import {
-  ConnectButton,
-  RainbowKitProvider,
-  lightTheme,
-} from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { SendTransaction } from "../components/SendTransaction";
+import CustomConnectButton from "../components/CustomConnectButton";
 
 const Home: NextPage = () => {
   return (
@@ -21,25 +15,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex min-h-screen flex-col items-center justify-center">
-        <h1 className="mb-4 text-5xl">Cube Dapp</h1>
-        <RainbowKitProvider
-          showRecentTransactions={true}
-          appInfo={{
-            appName: "Cube Dapp",
-          }}
-          modalSize="wide"
-          theme={lightTheme()}
-          locale="en"
-        >
-          <div className="flex flex-col items-center justify-center">
-            <ConnectButton
-              label="Sing in"
-              chainStatus="full"
-              showBalance={true}
-            />
-            <SendTransaction />
-          </div>
-        </RainbowKitProvider>
+        <div>
+          <h1 className="mb-4 text-5xl">Cube Dapp</h1>
+          <CustomConnectButton />
+        </div>
       </main>
     </div>
   );

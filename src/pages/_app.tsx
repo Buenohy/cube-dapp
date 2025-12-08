@@ -1,20 +1,22 @@
-import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
-import type { AppProps } from 'next/app';
+import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { RainbowKitProvider, type Locale } from "@rainbow-me/rainbowkit";
 
-import { config } from '../wagmi';
+import { config } from "../wagmi";
 
-const client = new QueryClient();
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { locale } = useRouter() as { locale: Locale };
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={client}>
-        <RainbowKitProvider>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider locale={locale}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
