@@ -1,4 +1,8 @@
-import { ConnectButton, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  ConnectButton,
+  RainbowKitProvider,
+  lightTheme,
+} from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -6,7 +10,7 @@ import { SendTransaction } from "../components/SendTransaction";
 
 const Home: NextPage = () => {
   return (
-    <div className="p-8">
+    <div className="flex flex-col items-center justify-center p-4">
       <Head>
         <title>Cube Dapp</title>
         <meta
@@ -23,13 +27,18 @@ const Home: NextPage = () => {
           appInfo={{
             appName: "Cube Dapp",
           }}
+          modalSize="wide"
+          theme={lightTheme()}
+          locale="en"
         >
-          <ConnectButton
-            label="Sing in"
-            chainStatus="full"
-            showBalance={true}
-          />
-          <SendTransaction />
+          <div className="flex flex-col items-center justify-center">
+            <ConnectButton
+              label="Sing in"
+              chainStatus="full"
+              showBalance={true}
+            />
+            <SendTransaction />
+          </div>
         </RainbowKitProvider>
       </main>
     </div>

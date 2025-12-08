@@ -14,7 +14,7 @@ export function SendTransaction() {
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-4">
+    <form onSubmit={submit} className="mt-5 flex flex-col gap-4">
       <h2>Send to address</h2>
       <input
         name="address"
@@ -35,7 +35,9 @@ export function SendTransaction() {
       >
         Send
       </button>
-      {hash && <div>Transaction Hash: {hash}</div>}
+      <h2>Transaction Hash: {hash}</h2>
+      <h2>Block:</h2>
+      <h2>Gas Tax:</h2>
     </form>
   );
 }
