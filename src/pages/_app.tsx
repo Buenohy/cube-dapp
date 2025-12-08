@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider locale={locale}>
+        <RainbowKitProvider locale={locale} modalSize="wide">
           <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
