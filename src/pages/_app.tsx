@@ -5,7 +5,11 @@ import { useRouter } from "next/router";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { RainbowKitProvider, type Locale } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  darkTheme,
+  type Locale,
+} from "@rainbow-me/rainbowkit";
 
 import { config } from "../wagmi";
 
@@ -16,7 +20,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider locale={locale} modalSize="wide">
+        <RainbowKitProvider
+          locale={locale}
+          modalSize="wide"
+          theme={darkTheme()}
+        >
           <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>

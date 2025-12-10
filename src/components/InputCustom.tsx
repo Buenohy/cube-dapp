@@ -12,13 +12,13 @@ export default function InputCustom({
   placeholder,
 }: InputCustomProps) {
   return (
-    <div className="flex w-full flex-col gap-2">
-      <span>{title}</span>
+    <div className="flex w-full flex-col gap-1">
+      <span className="text-white">{title}</span>
       <input
         name={name}
         placeholder={placeholder}
         required
-        className="w-full rounded-2xl border-2 border-gray-400 p-2"
+        className="w-full cursor-pointer rounded-2xl border-2 border-gray-400 p-2 text-white placeholder:text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 focus:outline-none"
       />
     </div>
   );

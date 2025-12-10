@@ -33,7 +33,7 @@ export function SendTransaction() {
   const chainId = useChainId();
 
   return (
-    <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-4">
+    <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-2">
       <InfosCustom title="Your Wallet:" information={address} />
       <InfosCustom
         title="Your Balance:"
@@ -53,7 +53,10 @@ export function SendTransaction() {
         title="Gas Price:"
         information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwai` : "..."}
       />
-      <button type="submit" className="rounded-2xl bg-green-500 p-2 text-white">
+      <button
+        type="submit"
+        className="mt-4 rounded-2xl bg-green-500 p-2 text-white"
+      >
         Send
       </button>
       <InfosCustom title="Transaction Hash:" information={hash} />
