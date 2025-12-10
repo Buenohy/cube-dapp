@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useSendTransaction } from "wagmi";
-import { parseEther } from "viem";
+import { useSendTransaction, useGasPrice } from "wagmi";
+import { parseEther, formatUnits } from "viem";
 import InputCustom from "./InputCustom";
 
 export function SendTransaction() {
@@ -14,14 +14,21 @@ export function SendTransaction() {
     sendTransaction({ to, value: parseEther(value) });
   }
 
+  const { data: gasPrice } = useGasPrice();
+
   return (
-    <form onSubmit={submit} className="mt-5 flex flex-col gap-4">
+    <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-4">
       <InputCustom
         title="Send to addres"
         name="address"
         placeholder="0xA0Cf…251e"
       />
       <InputCustom title="Value" name="value" placeholder="0.01" />
+      <InputCustom
+        title="Gas Price:"
+        name="Gas Price"
+        placeholder={gasPrice ? `${formatUnits(gasPrice, 9)} Gwai` : "..."}
+      />
       <button type="submit" className="rounded-2xl bg-green-500 p-2 text-white">
         Send
       </button>
