@@ -9,6 +9,7 @@ import {
 } from "wagmi";
 import { parseEther, formatUnits } from "viem";
 import InputCustom from "./InputCustom";
+import InfosCustom from "./InfosCustom";
 
 export function SendTransaction() {
   const { data: hash, sendTransaction } = useSendTransaction();
@@ -33,11 +34,10 @@ export function SendTransaction() {
 
   return (
     <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-4">
-      <InputCustom title="Your Wallet" name="wallet" placeholder={address} />
-      <InputCustom
-        title="Your Balance"
-        name="balance"
-        placeholder={
+      <InfosCustom title="Your Wallet:" information={address} />
+      <InfosCustom
+        title="Your Balance:"
+        information={
           balanceNumber
             ? `${balanceNumber.formatted} ${balanceNumber.symbol}`
             : "Loading..."
@@ -49,25 +49,19 @@ export function SendTransaction() {
         placeholder="0xA0Cf…251e"
       />
       <InputCustom title="Value" name="value" placeholder="0.01" />
-      <InputCustom
+      <InfosCustom
         title="Gas Price:"
-        name="gasPrice"
-        placeholder={gasPrice ? `${formatUnits(gasPrice, 9)} Gwai` : "..."}
+        information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwai` : "..."}
       />
       <button type="submit" className="rounded-2xl bg-green-500 p-2 text-white">
         Send
       </button>
-      <InputCustom
-        title="Transaction Hash:"
-        name="transactionHash"
-        placeholder={hash}
-      />
-      <InputCustom
+      <InfosCustom title="Transaction Hash:" information={hash} />
+      <InfosCustom
         title="Block Number:"
-        name="blockNumber"
-        placeholder={blockNumber?.toString()}
+        information={blockNumber?.toString()}
       />
-      <InputCustom title="Chain ID:" name="chainId" placeholder={chainId} />
+      <InfosCustom title="Chain ID:" information={chainId} />
     </form>
   );
 }

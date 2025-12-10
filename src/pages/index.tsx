@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import CustomConnectButton from "../components/CustomConnectButton";
-import ReadBalance from "../components/ReadBalance";
 import Header from "../components/Header";
 import { SendTransaction } from "../components/SendTransaction";
 
