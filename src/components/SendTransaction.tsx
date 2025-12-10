@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useSendTransaction } from "wagmi";
 import { parseEther } from "viem";
+import InputCustom from "./InputCustom";
 
 export function SendTransaction() {
   const { data: hash, sendTransaction } = useSendTransaction();
@@ -15,29 +16,20 @@ export function SendTransaction() {
 
   return (
     <form onSubmit={submit} className="mt-5 flex flex-col gap-4">
-      <h2>Send to address</h2>
-      <input
+      <InputCustom
+        title="Send to addres"
         name="address"
         placeholder="0xA0Cf…251e"
-        required
-        className="rounded-full border-2 border-gray-400 p-2"
       />
-      <h2>Value</h2>
-      <input
-        name="value"
-        placeholder="0.05"
-        required
-        className="rounded-full border-2 border-gray-400 p-2"
-      />
-      <button
-        type="submit"
-        className="rounded-full bg-green-500 p-2 text-white"
-      >
+      <InputCustom title="Value" name="value" placeholder="0.01" />
+      <button type="submit" className="rounded-2xl bg-green-500 p-2 text-white">
         Send
       </button>
-      <h2>Transaction Hash: {hash}</h2>
-      <h2>Block:</h2>
-      <h2>Gas Tax:</h2>
+      <InputCustom
+        title="Transaction Hash:"
+        name="Transaction Hash"
+        placeholder={hash}
+      />
     </form>
   );
 }

@@ -2,10 +2,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import CustomConnectButton from "../components/CustomConnectButton";
 import ReadBalance from "../components/ReadBalance";
+import Header from "../components/Header";
+import { SendTransaction } from "../components/SendTransaction";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center p-4">
+    <div className="flex flex-col items-center justify-center">
       <Head>
         <title>Cube Dapp</title>
         <meta
@@ -15,11 +17,12 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <main className="flex min-h-screen">
+      <main className="min-h-scree flex">
         <div className="flex flex-col items-center justify-center p-4">
-          <h1 className="mb-4 text-center text-5xl">Cube Dapp</h1>
+          <Header />
           <CustomConnectButton />
           <ReadBalance />
+          <SendTransaction />
         </div>
       </main>
     </div>
