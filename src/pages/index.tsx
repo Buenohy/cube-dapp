@@ -21,7 +21,6 @@ const Home: NextPage = () => {
         <div className="flex flex-col items-center justify-center p-4">
           <Header />
           <CustomConnectButton />
-          <ReadBalance />
           <SendTransaction />
         </div>
       </main>
