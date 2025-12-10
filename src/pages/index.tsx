@@ -19,7 +19,6 @@ const Home: NextPage = () => {
       <main className="min-h-scree flex bg-gray-900">
         <div className="flex flex-col items-center justify-center p-4">
           <Header />
-          <CustomConnectButton />
           <SendTransaction />
         </div>
       </main>

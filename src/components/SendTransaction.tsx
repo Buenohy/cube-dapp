@@ -10,6 +10,7 @@ import {
 import { parseEther, formatUnits } from "viem";
 import InputCustom from "./InputCustom";
 import InfosCustom from "./InfosCustom";
+import SendCrypto from "./SendCrypto";
 
 export function SendTransaction() {
   const { data: hash, sendTransaction } = useSendTransaction();
@@ -34,7 +35,7 @@ export function SendTransaction() {
 
   return (
     <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-2">
-      <InfosCustom title="Your Wallet:" information={address} />
+      {/* <InfosCustom title="Your Wallet:" information={address} />
       <InfosCustom
         title="Your Balance:"
         information={
@@ -42,16 +43,19 @@ export function SendTransaction() {
             ? `${balanceNumber.formatted} ${balanceNumber.symbol}`
             : "Loading..."
         }
-      />
-      <InputCustom
-        title="Send to addres"
-        name="address"
-        placeholder="0xA0Cf…251e"
-      />
-      <InputCustom title="Value" name="value" placeholder="0.01" />
+      /> */}
+      <div className="flex flex-col gap-4 rounded-2xl border border-gray-500 p-2">
+        <SendCrypto title="Amount" name="Amount" placeholder="0" />
+        {/* <InputCustom title="Amount" name="Amount" placeholder="0" /> */}
+        {/* <InputCustom
+          title="Send to Address"
+          name="address"
+          placeholder="0x1234..."
+        /> */}
+      </div>
       <InfosCustom
         title="Gas Price:"
-        information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwai` : "..."}
+        information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwei` : "..."}
       />
       <button
         type="submit"

@@ -23,7 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RainbowKitProvider
           locale={locale}
           modalSize="wide"
-          theme={darkTheme()}
+          theme={darkTheme({
+            accentColor: "#00c951",
+            accentColorForeground: "white",
+            borderRadius: "large",
+            fontStack: "system",
+            overlayBlur: "small",
+          })}
+          showRecentTransactions={true}
         >
           <Component {...pageProps} />
         </RainbowKitProvider>

@@ -1,16 +1,16 @@
 import React from "react";
 
-interface InputCustomProps {
+interface SendCryptoProps {
   title: string;
   name: string;
   placeholder: any;
 }
 
-export default function InputCustom({
+export default function SendCrypto({
   name,
   title,
   placeholder,
-}: InputCustomProps) {
+}: SendCryptoProps) {
   return (
     <div className="flex w-full flex-col gap-1">
       <span className="text-white">{title}</span>
