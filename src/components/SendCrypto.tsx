@@ -41,7 +41,12 @@ export default function SendCrypto({
         className="w-full cursor-pointer p-2 text-3xl font-bold text-white placeholder:text-gray-400 focus:outline-none"
       />
       <div className="flex justify-between">
-        <span className="font-medium text-gray-400">{dolar} US$</span>
+        <span className="font-medium text-gray-400">
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).format(dolar)}
+        </span>
         <span
           className={`font-bold ${isError ? "text-red-50" : "text-gray-400"}`}
         >

@@ -13,9 +13,18 @@ import InputCustom from "./InputCustom";
 import InfosCustom from "./InfosCustom";
 import SendCrypto from "./SendCrypto";
 import AdressCrypto from "./AdressCrypto";
+import useEthPrice from "../hooks/useEthPrice";
 
 export function SendTransaction() {
   const [amount, setAmount] = useState("");
+  const ethPice = useEthPrice();
+
+  const dolarValue = amount && ethPice ? Number(amount) * ethPice : 0;
+
+  const formatteDolar = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(dolarValue);
 
   const { address } = useAccount();
   const { data: balanceNumber } = useBalance({ address });
@@ -47,7 +56,7 @@ export function SendTransaction() {
           title="Amount"
           name="value"
           placeholder="0"
-          dolar={0}
+          dolar={Number(dolarValue.toFixed(2))}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           isError={isInsufficientBalance}
