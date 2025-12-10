@@ -56,7 +56,7 @@ export function SendTransaction() {
               ? Number(balanceNumber.formatted).toFixed(2)
               : "Loading..."
           }
-          cryptoName={balanceNumber?.symbol || "..."}
+          cryptoName={balanceNumber?.symbol || "ETH"}
         />
         <AdressCrypto
           title="Send to Address"
@@ -67,7 +67,7 @@ export function SendTransaction() {
       <button
         type="submit"
         disabled={isInsufficientBalance}
-        className={`mt-4 rounded-2xl p-2 text-white transition-colors ${
+        className={`my-4 rounded-2xl p-2 text-white transition-colors ${
           isInsufficientBalance
             ? "cursor-not-allowed bg-gray-500"
             : "bg-green-500 hover:bg-green-600"
@@ -75,16 +75,13 @@ export function SendTransaction() {
       >
         {isInsufficientBalance ? "Insufficient Balance" : "Send"}
       </button>
-      <InfosCustom
-        title="Gas Price:"
-        information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwei` : "..."}
-      />
-      <InfosCustom title="Transaction Hash:" information={hash} />
-      <InfosCustom
-        title="Block Number:"
-        information={blockNumber?.toString()}
-      />
-      <InfosCustom title="Chain ID:" information={chainId} />
+      <div className="rounded-2xl border border-gray-300 px-4 py-2">
+        <InfosCustom
+          title="Gas Price:"
+          information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwei` : "..."}
+        />
+        <InfosCustom title="Transaction Hash:" information={hash} />
+      </div>
     </form>
   );
 }

@@ -1,10 +1,20 @@
+"use state";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import CustomConnectButton from "../components/CustomConnectButton";
 import Header from "../components/Header";
 import { SendTransaction } from "../components/SendTransaction";
+import { useAccount } from "wagmi";
+import { useEffect, useState } from "react";
 
 const Home: NextPage = () => {
+  const { isConnected } = useAccount();
+  const [isMonted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMonted) return null;
   return (
     <div className="flex flex-col items-center justify-center">
       <Head>
@@ -19,7 +29,24 @@ const Home: NextPage = () => {
       <main className="min-h-scree flex bg-zinc-900">
         <div className="flex flex-col items-center justify-center p-4">
           <Header />
-          <SendTransaction />
+          {isConnected ? (
+            <div className="animate-in fade-in zoom-in w-full max-w-md duration-500">
+              <SendTransaction />
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-green-500 bg-zinc-800/50 p-10 text-center">
+              <h2 className="mb-2 text-2xl font-bold text-white">
+                Welcome to Cube Dapp
+              </h2>
+              <p className="mb-6 text-gray-400">
+                Connect your wallet to access the dashboard, view your balance
+                and make transfers.
+              </p>
+              <div className="animate-bounce text-sm text-green-400">
+                ☝️ Connect to start
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
