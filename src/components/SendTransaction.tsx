@@ -11,6 +11,7 @@ import { parseEther, formatUnits } from "viem";
 import InputCustom from "./InputCustom";
 import InfosCustom from "./InfosCustom";
 import SendCrypto from "./SendCrypto";
+import AdressCrypto from "./AdressCrypto";
 
 export function SendTransaction() {
   const { data: hash, sendTransaction } = useSendTransaction();
@@ -35,23 +36,24 @@ export function SendTransaction() {
 
   return (
     <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-2">
-      {/* <InfosCustom title="Your Wallet:" information={address} />
-      <InfosCustom
-        title="Your Balance:"
-        information={
-          balanceNumber
-            ? `${balanceNumber.formatted} ${balanceNumber.symbol}`
-            : "Loading..."
-        }
-      /> */}
-      <div className="flex flex-col gap-4 rounded-2xl border border-gray-500 p-2">
-        <SendCrypto title="Amount" name="Amount" placeholder="0" />
-        {/* <InputCustom title="Amount" name="Amount" placeholder="0" /> */}
-        {/* <InputCustom
+      <div className="flex flex-col gap-2">
+        <SendCrypto
+          title="Amount"
+          name="Amount"
+          placeholder="0"
+          dolar={0}
+          crypto={
+            balanceNumber
+              ? Number(balanceNumber.formatted).toFixed(2)
+              : "Loading..."
+          }
+          cryptoName={balanceNumber?.symbol || "..."}
+        />
+        <AdressCrypto
           title="Send to Address"
           name="address"
           placeholder="0x1234..."
-        /> */}
+        />
       </div>
       <InfosCustom
         title="Gas Price:"

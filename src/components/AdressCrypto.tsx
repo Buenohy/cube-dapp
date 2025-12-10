@@ -1,22 +1,16 @@
 import React from "react";
 
-interface SendCryptoProps {
+interface AdressCryptoProps {
   title: string;
   name: string;
   placeholder: any;
-  dolar: number;
-  crypto: any;
-  cryptoName: string;
 }
 
-export default function SendCrypto({
+export default function AdressCrypto({
   name,
   title,
   placeholder,
-  dolar,
-  crypto,
-  cryptoName,
-}: SendCryptoProps) {
+}: AdressCryptoProps) {
   return (
     <div className="flex w-full flex-col gap-1 rounded-2xl border border-gray-500 p-2">
       <span className="text-white">{title}</span>
@@ -26,12 +20,6 @@ export default function SendCrypto({
         required
         className="w-full cursor-pointer p-2 text-3xl font-bold text-white placeholder:text-gray-400 focus:outline-none"
       />
-      <div className="flex justify-between">
-        <span className="font-medium text-gray-400">{dolar} US$</span>
-        <span className="font-bold text-gray-400">
-          {crypto} {cryptoName}
-        </span>
-      </div>
     </div>
   );
 }
