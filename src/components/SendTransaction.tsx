@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import {
   useSendTransaction,
   useGasPrice,
@@ -14,34 +15,42 @@ import SendCrypto from "./SendCrypto";
 import AdressCrypto from "./AdressCrypto";
 
 export function SendTransaction() {
+  const [amount, setAmount] = useState("");
+
+  const { address } = useAccount();
+  const { data: balanceNumber } = useBalance({ address });
+  const { data: gasPrice } = useGasPrice();
   const { data: hash, sendTransaction } = useSendTransaction();
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const chainId = useChainId();
+
+  const isInsufficientBalance =
+    balanceNumber && amount
+      ? Number(amount) > Number(balanceNumber.formatted)
+      : false;
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const to = formData.get("address") as `0x${string}`;
     const value = formData.get("value") as string;
+
+    if (isInsufficientBalance) return;
+
     sendTransaction({ to, value: parseEther(value) });
   }
-
-  const { address } = useAccount();
-
-  const { data: balanceNumber } = useBalance({ address });
-
-  const { data: gasPrice } = useGasPrice();
-
-  const { data: blockNumber } = useBlockNumber({ watch: true });
-
-  const chainId = useChainId();
 
   return (
     <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-2">
       <div className="flex flex-col gap-2">
         <SendCrypto
           title="Amount"
-          name="Amount"
+          name="value"
           placeholder="0"
           dolar={0}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          isError={isInsufficientBalance}
           crypto={
             balanceNumber
               ? Number(balanceNumber.formatted).toFixed(2)
@@ -55,16 +64,21 @@ export function SendTransaction() {
           placeholder="0x1234..."
         />
       </div>
+      <button
+        type="submit"
+        disabled={isInsufficientBalance}
+        className={`mt-4 rounded-2xl p-2 text-white transition-colors ${
+          isInsufficientBalance
+            ? "cursor-not-allowed bg-gray-500"
+            : "bg-green-500 hover:bg-green-600"
+        }`}
+      >
+        {isInsufficientBalance ? "Insufficient Balance" : "Send"}
+      </button>
       <InfosCustom
         title="Gas Price:"
         information={gasPrice ? `${formatUnits(gasPrice, 9)} Gwei` : "..."}
       />
-      <button
-        type="submit"
-        className="mt-4 rounded-2xl bg-green-500 p-2 text-white"
-      >
-        Send
-      </button>
       <InfosCustom title="Transaction Hash:" information={hash} />
       <InfosCustom
         title="Block Number:"

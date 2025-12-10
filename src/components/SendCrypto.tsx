@@ -7,6 +7,9 @@ interface SendCryptoProps {
   dolar: number;
   crypto: any;
   cryptoName: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isError?: boolean;
 }
 
 export default function SendCrypto({
@@ -16,19 +19,32 @@ export default function SendCrypto({
   dolar,
   crypto,
   cryptoName,
+  value,
+  onChange,
+  isError,
 }: SendCryptoProps) {
   return (
-    <div className="flex w-full flex-col gap-1 rounded-2xl border border-gray-500 p-2">
+    <div
+      className={`flex w-full flex-col gap-1 rounded-2xl border px-4 py-2 ${
+        isError ? "border-red-500 bg-red-900/10" : "border-gray-300"
+      }`}
+    >
       <span className="text-white">{title}</span>
       <input
         name={name}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
+        inputMode="decimal"
+        type="number"
         required
         className="w-full cursor-pointer p-2 text-3xl font-bold text-white placeholder:text-gray-400 focus:outline-none"
       />
       <div className="flex justify-between">
         <span className="font-medium text-gray-400">{dolar} US$</span>
-        <span className="font-bold text-gray-400">
+        <span
+          className={`font-bold ${isError ? "text-red-50" : "text-gray-400"}`}
+        >
           {crypto} {cryptoName}
         </span>
       </div>

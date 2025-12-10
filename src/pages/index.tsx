@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <main className="min-h-scree flex bg-gray-900">
+      <main className="min-h-scree flex bg-zinc-900">
         <div className="flex flex-col items-center justify-center p-4">
           <Header />
           <SendTransaction />
