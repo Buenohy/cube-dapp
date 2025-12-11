@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import { SendTransaction } from "../components/SendTransaction";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
+import ReceiveCrypto from "../components/ReceiveCrypto";
 
 const Home: NextPage = () => {
   const { isConnected } = useAccount();
@@ -32,6 +33,7 @@ const Home: NextPage = () => {
           {isConnected ? (
             <div className="animate-in fade-in zoom-in w-full max-w-md duration-500">
               <SendTransaction />
+              <ReceiveCrypto />
             </div>
           ) : (
             <div className="rounded-2xl border border-green-500 bg-zinc-800/50 p-10 text-center">
