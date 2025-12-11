@@ -38,7 +38,7 @@ export default function SendCrypto({
         inputMode="decimal"
         type="number"
         required
-        className="w-full cursor-pointer p-2 text-3xl font-bold text-white placeholder:text-gray-400 focus:outline-none"
+        className="w-full cursor-pointer [appearance:textfield] p-2 text-3xl font-bold text-white placeholder:text-gray-400 focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
       />
       <div className="flex justify-between">
         <span className="font-medium text-gray-400">

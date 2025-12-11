@@ -10,7 +10,6 @@ import {
   useBlockNumber, // Você importou mas não usou no JSX, pode remover se quiser
 } from "wagmi";
 import { parseEther, formatUnits } from "viem";
-import InputCustom from "./InputCustom"; // Se não estiver usando, pode remover
 import InfosCustom from "./InfosCustom";
 import SendCrypto from "./SendCrypto";
 import AdressCrypto from "./AdressCrypto";
