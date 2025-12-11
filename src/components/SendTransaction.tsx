@@ -54,7 +54,8 @@ export function SendTransaction() {
     if (hash) {
       addRecentTransaction({
         hash: hash,
-        description: `Send ${amount} ETH`, // O texto que aparecerá na lista
+        description: `Send ${amount} ETH`,
+        confirmations: 1, // O texto que aparecerá na lista
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

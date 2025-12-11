@@ -16,43 +16,64 @@ export default function ReceiveCrypto() {
 
   if (!address) return null;
 
+  // Lógica para gerar o link do explorador (Etherscan)
+  // Se a rede tiver explorador definido, usa ele. Senão, fallback para Sepolia.
+  const explorerUrl = chain?.blockExplorers?.default?.url
+    ? `${chain.blockExplorers.default.url}/address/${address}`
+    : `https://sepolia.etherscan.io/address/${address}`;
+
   return (
-    <div className="animate-in fade-in zoom-in flex w-full flex-col items-center justify-center gap-6 rounded-2xl border border-gray-300 py-4 duration-300">
-      <p className="text-white">
+    <div className="animate-in fade-in zoom-in flex w-full flex-col items-center justify-center gap-6 rounded-2xl border border-gray-700 bg-gray-900/30 py-6 duration-300">
+      <p className="font-medium text-white">
         Receive assets on{" "}
-        <span className="text-green-400">
-          {chain?.name || "Unknow Network"}
+        <span className="text-green-500">
+          {chain?.name || "Unknown Network"}
         </span>
       </p>
 
-      <div className="rounded-2xl bg-white p-4">
+      <div className="rounded-2xl bg-white p-4 shadow-[0_0_15px_rgba(34,197,94,0.3)]">
         <QRCodeSVG
           value={address}
-          size={200}
+          size={180}
           level={"H"}
           bgColor={"#ffffff"}
           fgColor={"#000000"}
         />
       </div>
 
-      <div className="flex flex-col items-center gap-2 text-center">
+      <div className="flex w-full flex-col items-center gap-2 px-4 text-center">
         <span className="text-sm text-gray-400">Your Wallet Address</span>
-
-        <p className="rounded-xl border border-gray-300 bg-slate-800 px-4 py-2 font-mono text-sm break-all text-white">
+        <div
+          onClick={handleCopy}
+          className="w-full cursor-pointer rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 font-mono text-sm break-all text-gray-200 transition-colors hover:border-gray-500 hover:text-white"
+        >
           {address}
-        </p>
+        </div>
       </div>
 
-      <button
-        onClick={handleCopy}
-        className={`flex cursor-pointer items-center gap-2 rounded-xl px-6 py-2 font-bold transition-all duration-300 ${
-          copied
-            ? "bg-green-500 text-white"
-            : "bg-slate-700 text-white hover:bg-slate-600"
-        }`}
-      >
-        {copied ? <>✅ Copied!</> : <>📄 Copy Address</>}
-      </button>
+      <div className="flex w-full gap-3 px-4">
+        {/* Botão Copiar */}
+        <button
+          onClick={handleCopy}
+          className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 font-bold transition-all duration-300 ${
+            copied
+              ? "bg-green-600 text-white"
+              : "bg-gray-700 text-white hover:bg-gray-600"
+          }`}
+        >
+          {copied ? "Copied!" : "Copy"}
+        </button>
+
+        {/* NOVO: Botão para ver no Etherscan */}
+        <a
+          href={explorerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-blue-500/50 bg-blue-600/20 font-bold text-blue-400 transition-all duration-300 hover:bg-blue-600 hover:text-white"
+        >
+          Explorer ↗
+        </a>
+      </div>
     </div>
   );
 }
