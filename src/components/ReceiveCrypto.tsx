@@ -3,15 +3,14 @@ import { useAccount } from "wagmi";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function ReceiveCrypto() {
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
   const [copied, setCopied] = useState(false);
 
-  // Função para copiar endereço
   const handleCopy = () => {
     if (address) {
       navigator.clipboard.writeText(address);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reseta texto após 2s
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -19,7 +18,12 @@ export default function ReceiveCrypto() {
 
   return (
     <div className="animate-in fade-in zoom-in flex w-full flex-col items-center justify-center gap-6 rounded-2xl border border-gray-300 py-4 duration-300">
-      <p className="text-white">Receive assets on Ethereum Sepolia</p>
+      <p className="text-white">
+        Receive assets on{" "}
+        <span className="text-green-400">
+          {chain?.name || "Unknow Network"}
+        </span>
+      </p>
 
       <div className="rounded-2xl bg-white p-4">
         <QRCodeSVG
@@ -41,7 +45,7 @@ export default function ReceiveCrypto() {
 
       <button
         onClick={handleCopy}
-        className={`flex cursor-pointer items-center gap-2 rounded-xl px-6 py-2 font-bold transition-all ${
+        className={`flex cursor-pointer items-center gap-2 rounded-xl px-6 py-2 font-bold transition-all duration-300 ${
           copied
             ? "bg-green-500 text-white"
             : "bg-slate-700 text-white hover:bg-slate-600"

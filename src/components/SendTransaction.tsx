@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit";
 import {
   useSendTransaction,
   useWaitForTransactionReceipt,
@@ -14,6 +15,9 @@ import AdressCrypto from "./AdressCrypto";
 import useEthPrice from "../hooks/useEthPrice";
 
 export function SendTransaction() {
+  // 2. Inicialize o hook de transações recentes
+  const addRecentTransaction = useAddRecentTransaction();
+
   // --- STATES (Inputs Controlados) ---
   const [userAddress, setUserAddress] = useState("");
   const [amount, setAmount] = useState("");
@@ -44,7 +48,19 @@ export function SendTransaction() {
 
   const isBusy = isSigning || isConfirming;
 
-  // --- EFEITOS (Limpeza) ---
+  // --- EFEITO 1: ADICIONAR AO HISTÓRICO DO RAINBOWKIT ---
+  // Assim que o hash é gerado, salvamos na lista de recentes
+  useEffect(() => {
+    if (hash) {
+      addRecentTransaction({
+        hash: hash,
+        description: `Send ${amount} ETH`, // O texto que aparecerá na lista
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash]);
+
+  // --- EFEITO 2: LIMPEZA APÓS SUCESSO ---
   useEffect(() => {
     if (isConfirmed) {
       setAmount(""); // Limpa o valor
@@ -52,14 +68,14 @@ export function SendTransaction() {
     }
   }, [isConfirmed]);
 
-  // --- SUBMIT CORRIGIDO ---
+  // --- SUBMIT ---
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // 1. Validação simples
+    // Validação simples
     if (isInsufficientBalance || !userAddress || !amount) return;
 
-    // 2. Envio único usando os States
+    // Envio
     sendTransaction({
       to: userAddress as `0x${string}`,
       value: parseEther(amount),
@@ -128,7 +144,7 @@ export function SendTransaction() {
       </button>
 
       {(gasPrice || hash) && (
-        <div className="rounded-2xl border border-gray-300 px-4 py-2">
+        <div className="rounded-2xl border border-gray-700 bg-slate-900/50 px-4 py-3 shadow-sm">
           {gasPrice && (
             <InfosCustom
               title="Gas Price:"

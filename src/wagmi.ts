@@ -8,8 +8,16 @@ import {
   sepolia,
 } from "wagmi/chains";
 
+import {
+  rabbyWallet,
+  metaMaskWallet,
+  rainbowWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
+
 export const config = getDefaultConfig({
-  appName: "RainbowKit App",
+  appName: "Cube Dapp",
   projectId: "YOUR_PROJECT_ID",
   chains: [
     mainnet,
@@ -21,4 +29,17 @@ export const config = getDefaultConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
   ssr: true,
+
+  wallets: [
+    {
+      groupName: "Recommended",
+      wallets: [
+        rabbyWallet,
+        metaMaskWallet,
+        rainbowWallet,
+        coinbaseWallet,
+        walletConnectWallet,
+      ],
+    },
+  ],
 });

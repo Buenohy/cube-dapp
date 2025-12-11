@@ -1,22 +1,22 @@
-"use state";
-
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "../components/Header";
-import { SendTransaction } from "../components/SendTransaction";
-import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
-import ReceiveCrypto from "../components/ReceiveCrypto";
+import { useAccount } from "wagmi";
+import Header from "../components/Header";
+import Dashboard from "../components/Dashboard";
 
 const Home: NextPage = () => {
   const { isConnected } = useAccount();
-  const [isMonted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  if (!isMonted) return null;
+
+  if (!isMounted) return null;
+
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="bg-zinc-900 text-white">
       <Head>
         <title>Cube Dapp</title>
         <meta
@@ -26,16 +26,16 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <main className="min-h-scree flex bg-zinc-900">
-        <div className="flex flex-col items-center justify-center p-4">
+      <main className="flex min-h-screen flex-col items-center">
+        <div className="flex w-full justify-center p-4">
           <Header />
+        </div>
+
+        <div className="flex w-full max-w-md flex-1 flex-col items-center justify-center p-4">
           {isConnected ? (
-            <div className="animate-in fade-in zoom-in w-full max-w-md duration-500">
-              <SendTransaction />
-              <ReceiveCrypto />
-            </div>
+            <Dashboard />
           ) : (
-            <div className="rounded-2xl border border-green-500 bg-zinc-800/50 p-10 text-center">
+            <div className="animate-in fade-in slide-in-from-bottom-4 rounded-2xl border border-green-500 bg-zinc-800/50 p-10 text-center duration-700">
               <h2 className="mb-2 text-2xl font-bold text-white">
                 Welcome to Cube Dapp
               </h2>
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
                 Connect your wallet to access the dashboard, view your balance
                 and make transfers.
               </p>
-              <div className="animate-bounce text-sm text-green-400">
+              <div className="animate-bounce text-sm font-bold text-green-400">
                 ☝️ Connect to start
               </div>
             </div>
