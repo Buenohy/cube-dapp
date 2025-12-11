@@ -6,8 +6,6 @@ import {
   useGasPrice,
   useAccount,
   useBalance,
-  useChainId,
-  useBlockNumber, // Você importou mas não usou no JSX, pode remover se quiser
 } from "wagmi";
 import { parseEther, formatUnits } from "viem";
 import InfosCustom from "./InfosCustom";
@@ -34,8 +32,6 @@ export function SendTransaction() {
   const { address } = useAccount();
   const { data: balanceNumber } = useBalance({ address });
   const { data: gasPrice } = useGasPrice();
-  // const { data: blockNumber } = useBlockNumber({ watch: true }); // Opcional
-  // const chainId = useChainId(); // Opcional
 
   // --- PREÇO E CÁLCULOS ---
   const ethPrice = useEthPrice();

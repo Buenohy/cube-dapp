@@ -2,7 +2,6 @@
 
 import type { NextPage } from "next";
 import Head from "next/head";
-import CustomConnectButton from "../components/CustomConnectButton";
 import Header from "../components/Header";
 import { SendTransaction } from "../components/SendTransaction";
 import { useAccount } from "wagmi";

@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAccount } from "wagmi";
+import { QRCodeSVG } from "qrcode.react";
 
-interface ReceiveCryptoProps {
-  chainName: string;
-  qrcode: string;
-  address: string;
-}
+export default function ReceiveCrypto() {
+  const { address } = useAccount();
+  const [copied, setCopied] = useState(false);
 
-export default function ReceiveCrypto({
-  chainName,
-  qrcode,
-  address,
-}: ReceiveCryptoProps) {
+  // Função para copiar endereço
+  const handleCopy = () => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reseta texto após 2s
+    }
+  };
+
+  if (!address) return null;
+
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-300 px-4 py-2">
-      <h2 className="text-white">Receive assets on {chainName}</h2>
-      <h3 className="text-white">{qrcode}</h3>
-      <h4 className="text-white">{address}</h4>
+    <div className="animate-in fade-in zoom-in flex w-full flex-col items-center justify-center gap-6 rounded-2xl border border-gray-300 py-4 duration-300">
+      <p className="text-white">Receive assets on Ethereum Sepolia</p>
+
+      <div className="rounded-2xl bg-white p-4">
+        <QRCodeSVG
+          value={address}
+          size={200}
+          level={"H"}
+          bgColor={"#ffffff"}
+          fgColor={"#000000"}
+        />
+      </div>
+
+      <div className="flex flex-col items-center gap-2 text-center">
+        <span className="text-sm text-gray-400">Your Wallet Address</span>
+
+        <p className="rounded-xl border border-gray-300 bg-slate-800 px-4 py-2 font-mono text-sm break-all text-white">
+          {address}
+        </p>
+      </div>
+
       <button
-        type="button"
-        className="cursor-pointer rounded-2xl border px-4 py-2 text-white"
+        onClick={handleCopy}
+        className={`flex cursor-pointer items-center gap-2 rounded-xl px-6 py-2 font-bold transition-all ${
+          copied
+            ? "bg-green-500 text-white"
+            : "bg-slate-700 text-white hover:bg-slate-600"
+        }`}
       >
-        Copy address
+        {copied ? <>✅ Copied!</> : <>📄 Copy Address</>}
       </button>
     </div>
   );
