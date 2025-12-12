@@ -15,14 +15,11 @@ import AdressCrypto from "./AdressCrypto";
 import useEthPrice from "../hooks/useEthPrice";
 
 export function SendTransaction() {
-  // 2. Inicialize o hook de transações recentes
   const addRecentTransaction = useAddRecentTransaction();
 
-  // --- STATES (Inputs Controlados) ---
   const [userAddress, setUserAddress] = useState("");
   const [amount, setAmount] = useState("");
 
-  // --- WAGMI WRITE ---
   const {
     data: hash,
     isPending: isSigning,
@@ -32,12 +29,10 @@ export function SendTransaction() {
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({ hash });
 
-  // --- WAGMI READ ---
   const { address } = useAccount();
   const { data: balanceNumber } = useBalance({ address });
   const { data: gasPrice } = useGasPrice();
 
-  // --- PREÇO E CÁLCULOS ---
   const ethPrice = useEthPrice();
   const dolarValue = amount && ethPrice ? Number(amount) * ethPrice : 0;
 
@@ -48,35 +43,28 @@ export function SendTransaction() {
 
   const isBusy = isSigning || isConfirming;
 
-  // --- EFEITO 1: ADICIONAR AO HISTÓRICO DO RAINBOWKIT ---
-  // Assim que o hash é gerado, salvamos na lista de recentes
   useEffect(() => {
     if (hash) {
       addRecentTransaction({
         hash: hash,
         description: `Send ${amount} ETH`,
-        confirmations: 1, // O texto que aparecerá na lista
+        confirmations: 1,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash]);
 
-  // --- EFEITO 2: LIMPEZA APÓS SUCESSO ---
   useEffect(() => {
     if (isConfirmed) {
-      setAmount(""); // Limpa o valor
-      setUserAddress(""); // Limpa o endereço
+      setAmount("");
+      setUserAddress("");
     }
   }, [isConfirmed]);
 
-  // --- SUBMIT ---
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Validação simples
     if (isInsufficientBalance || !userAddress || !amount) return;
 
-    // Envio
     sendTransaction({
       to: userAddress as `0x${string}`,
       value: parseEther(amount),
@@ -123,7 +111,6 @@ export function SendTransaction() {
                 : "cursor-pointer border-green-500/50 bg-green-600/20 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:bg-green-600 hover:text-white"
         } `}
       >
-        {/* Conteúdo do botão (Spinners e Textos) mantém igual... */}
         {isSigning && (
           <>
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
