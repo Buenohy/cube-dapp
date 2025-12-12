@@ -84,7 +84,7 @@ export function SendTransaction() {
   }
 
   return (
-    <form onSubmit={submit} className="mt-5 flex w-full flex-col gap-4">
+    <form onSubmit={submit} className="flex w-full flex-col gap-4">
       <div className="flex flex-col gap-2">
         <SendCrypto
           title="Amount"
@@ -113,16 +113,17 @@ export function SendTransaction() {
       <button
         type="submit"
         disabled={isInsufficientBalance || isBusy || isConfirmed}
-        className={`my-2 flex w-full items-center justify-center gap-2 rounded-2xl p-3 font-bold text-white transition-all ${
+        className={`my-2 flex w-full items-center justify-center gap-2 rounded-2xl border p-3 font-bold text-white transition-all duration-300 ${
           isConfirmed
-            ? "cursor-default bg-green-600"
+            ? "cursor-default border-green-500/50 bg-green-600/20 text-green-400"
             : isInsufficientBalance
-              ? "cursor-not-allowed bg-gray-500"
+              ? "cursor-not-allowed border-red-500/30 bg-red-500/10 text-red-500"
               : isBusy
-                ? "cursor-not-allowed bg-blue-500"
-                : "bg-green-500 hover:bg-green-600"
-        }`}
+                ? "cursor-wait border-blue-500/50 bg-blue-600/20 text-blue-400"
+                : "cursor-pointer border-green-500/50 bg-green-600/20 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:bg-green-600 hover:text-white"
+        } `}
       >
+        {/* Conteúdo do botão (Spinners e Textos) mantém igual... */}
         {isSigning && (
           <>
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -145,7 +146,7 @@ export function SendTransaction() {
       </button>
 
       {(gasPrice || hash) && (
-        <div className="rounded-2xl border border-gray-700 bg-slate-900/50 px-4 py-3 shadow-sm">
+        <div className="rounded-2xl border border-gray-300 px-4 py-3 shadow-sm">
           {gasPrice && (
             <InfosCustom
               title="Gas Price:"

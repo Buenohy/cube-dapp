@@ -25,8 +25,8 @@ export default function SendCrypto({
 }: SendCryptoProps) {
   return (
     <div
-      className={`flex w-full flex-col gap-1 rounded-2xl border px-4 py-2 ${
-        isError ? "border-red-500 bg-red-900/10" : "border-gray-300"
+      className={`flex w-full flex-col gap-1 rounded-2xl px-4 py-2 ring-1 ${
+        isError ? "bg-red-900/10 ring-red-500" : "ring-gray-300"
       }`}
     >
       <span className="text-white">{title}</span>

@@ -16,8 +16,6 @@ export default function ReceiveCrypto() {
 
   if (!address) return null;
 
-  // Lógica para gerar o link do explorador (Etherscan)
-  // Se a rede tiver explorador definido, usa ele. Senão, fallback para Sepolia.
   const explorerUrl = chain?.blockExplorers?.default?.url
     ? `${chain.blockExplorers.default.url}/address/${address}`
     : `https://sepolia.etherscan.io/address/${address}`;
@@ -45,17 +43,16 @@ export default function ReceiveCrypto() {
         <span className="text-sm text-gray-400">Your Wallet Address</span>
         <div
           onClick={handleCopy}
-          className="w-full cursor-pointer rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 font-mono text-sm break-all text-gray-200 transition-colors hover:border-gray-500 hover:text-white"
+          className="w-full cursor-pointer rounded-2xl border border-gray-700 bg-gray-800 px-4 py-3 font-mono text-sm break-all text-gray-200 transition-colors hover:border-gray-500 hover:text-white"
         >
           {address}
         </div>
       </div>
 
       <div className="flex w-full gap-3 px-4">
-        {/* Botão Copiar */}
         <button
           onClick={handleCopy}
-          className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 font-bold transition-all duration-300 ${
+          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-2xl py-3 font-bold transition-all duration-300 ${
             copied
               ? "bg-green-600 text-white"
               : "bg-gray-700 text-white hover:bg-gray-600"
@@ -64,12 +61,11 @@ export default function ReceiveCrypto() {
           {copied ? "Copied!" : "Copy"}
         </button>
 
-        {/* NOVO: Botão para ver no Etherscan */}
         <a
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-blue-500/50 bg-blue-600/20 font-bold text-blue-400 transition-all duration-300 hover:bg-blue-600 hover:text-white"
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-green-500/50 bg-green-600/20 font-bold text-green-400 transition-all duration-300 hover:bg-green-600 hover:text-white"
         >
           Explorer ↗
         </a>
